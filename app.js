@@ -1,6 +1,4 @@
-let herramienta = ["pencil", "brush", "eraser"];
-x = 0;
-let activo = false;
+//let herramienta = ["pencil", "brush", "eraser"];
 
 let pencil = document.getElementById("pencil");
 let brush = document.getElementById("brush");
