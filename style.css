@@ -1,0 +1,64 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.fa-2xl {
+  color: rgb(255, 95, 170);
+}
+
+button {
+  width: 4rem;
+  height: 4rem;
+  margin: 0 2rem;
+  border: none;
+  border-radius: 50px;
+}
+
+.div__lapices > button {
+  background-color: #c9c9c9;
+}
+
+.div__lapices > button:active,
+.div__lapices > button[active] {
+  background-color: #000000;
+  width: 4rem;
+  height: 4rem;
+}
+
+#color-1 {
+  background-color: #fc3939;
+}
+
+#color-2 {
+  background-color: #6cff80;
+}
+
+#color-3 {
+  background-color: #ffb950;
+}
+
+.button__color:active,
+.button__color[active] {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.377);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #eee;
+  width: 80vw;
+  height: 80vh;
+}
+
+.div__lapices,
+.div__colores {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 50vw;
+  margin-bottom: 1rem;
+}

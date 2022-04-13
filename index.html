@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paint</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="div__herramientas">
+        <div class="div__lapices" id="lapices">
+          <button class="button__herramienta" id="pencil">
+            <i class="fa-solid fa-pencil fa-2xl"></i>
+          </button>
+          <button class="button__herramienta" id="brush">
+            <i class="fa-solid fa-paintbrush fa-2xl"></i>
+          </button>
+          <button class="button__herramienta" id="eraser">
+            <i class="fa-solid fa-eraser fa-2xl"></i>
+          </button>
+        </div>
+        <div class="div__colores">
+          <button class="button__color" id="color-1"></button>
+          <button class="button__color" id="color-2"></button>
+          <button class="button__color" id="color-3"></button>
+        </div>
+      </div>
+      <canvas
+        width="800"
+        height="400"
+        class="div__pantalla"
+        id="pantalla"
+      ></canvas>
+    </div>
+    <script
+      src="https://kit.fontawesome.com/e69822852a.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="app.js"></script>
+  </body>
+</html>
