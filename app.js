@@ -31,8 +31,6 @@ function checkColor() {
     pincel.strokeStyle = "#FFB950";
   } else if (negro) {
     pincel.strokeStyle = "#000000";
-  } else {
-    puedoDibujar = false;
   }
 }
 
