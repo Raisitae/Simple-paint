@@ -38,6 +38,10 @@ button {
   background-color: #ffb950;
 }
 
+#color-4 {
+  background-color: #000000;
+}
+
 .button__color:active,
 .button__color[active] {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.377);
@@ -49,8 +53,7 @@ button {
   justify-content: center;
   align-items: center;
   background-color: #eee;
-  width: 80vw;
-  height: 80vh;
+  height: 100vh;
 }
 
 .div__lapices,

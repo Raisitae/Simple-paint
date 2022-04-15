@@ -7,64 +7,90 @@ let eraser = document.getElementById("eraser");
 let color1 = document.getElementById("color-1");
 let color2 = document.getElementById("color-2");
 let color3 = document.getElementById("color-3");
+let color4 = document.getElementById("color-4");
 
 let rojo = false;
 let verde = false;
 let naranja = false;
+let negro = false;
 
 var pantalla = document.querySelector("canvas");
 var pincel = pantalla.getContext("2d");
+pincel.strokeStyle = "white";
 pincel.fillStyle = "white";
-pincel.fillRect(0, 0, 800, 400);
+pincel.fillRect(0, 0, 1200, 600);
 
 let puedoDibujar = false;
 
 function checkColor() {
   if (rojo) {
-    pincel.fillStyle = "#FC3939";
+    pincel.strokeStyle = "#FC3939";
   } else if (verde) {
-    pincel.fillStyle = "#6CFF80";
+    pincel.strokeStyle = "#6CFF80";
   } else if (naranja) {
-    pincel.fillStyle = "#FFB950";
+    pincel.strokeStyle = "#FFB950";
+  } else if (negro) {
+    pincel.strokeStyle = "#000000";
+  } else {
+    puedoDibujar = false;
   }
 }
 
-function dibujarCirculo(evento) {
+function start(evento) {
+  pincel.beginPath();
+  pincel.moveTo(
+    evento.pageX - pantalla.offsetLeft,
+    evento.pageY - pantalla.offsetTop
+  );
+  puedoDibujar = true;
+  evento.preventDefault();
+}
+
+function dibujar(evento) {
   if (puedoDibujar) {
-    var x = evento.pageX - pantalla.offsetLeft;
-    var y = evento.pageY - pantalla.offsetTop;
+    pincel.lineTo(
+      evento.pageX - pantalla.offsetLeft,
+      evento.pageY - pantalla.offsetTop
+    );
+    pincel.strokeStyle = checkColor();
+    pincel.linecap = "round";
+    pincel.lineJoin = "round";
     if (document.getElementById("pencil").hasAttribute("active")) {
-      pincel.fillStyle = checkColor();
-      pincel.beginPath();
-      pincel.arc(x, y, 5, 0, 2 * 3.14);
-      pincel.fill();
+      pincel.lineWidth = 5;
+      pincel.stroke();
     } else if (document.getElementById("brush").hasAttribute("active")) {
-      pincel.fillStyle = checkColor();
-      pincel.beginPath();
-      pincel.arc(x, y, 10, 0, 2 * 3.14);
-      pincel.fill();
+      pincel.lineWidth = 10;
+      pincel.stroke();
     } else if (document.getElementById("eraser").hasAttribute("active")) {
-      pincel.fillStyle = "white";
-      pincel.beginPath();
-      pincel.arc(x, y, 10, 0, 2 * 3.14);
-      pincel.fill();
+      pincel.strokeStyle = "white";
+      pincel.lineWidth = 10;
+      pincel.stroke();
     }
   }
+  evento.preventDefault();
+}
+
+function stop(evento) {
+  if (puedoDibujar) {
+    pincel.stroke();
+    pincel.closePath();
+    puedoDibujar = false;
+  }
+  evento.preventDefault();
 }
 
 function habilitarDibujar() {
   puedoDibujar = true;
 }
 
-function deshabilitarDibujar() {
-  puedoDibujar = false;
-}
+pantalla.addEventListener("touchstart", start, false);
+pantalla.addEventListener("touchmove", dibujar, false);
+pantalla.addEventListener("mousedown", start, false);
+pantalla.addEventListener("mousemove", dibujar, false);
 
-pantalla.onmousemove = dibujarCirculo;
-
-pantalla.onmousedown = habilitarDibujar;
-
-pantalla.onmouseup = deshabilitarDibujar;
+pantalla.addEventListener("touchend", stop, false);
+pantalla.addEventListener("mouseup", stop, false);
+pantalla.addEventListener("mouseout", stop, false);
 
 // este switch si funciona
 function elegirHerramienta(e) {
@@ -123,27 +149,47 @@ function elegirColor(e) {
       e.target.toggleAttribute("active");
       color2.removeAttribute("active");
       color3.removeAttribute("active");
+      color4.removeAttribute("active");
       rojo = true;
       verde = false;
       naranja = false;
+      negro = false;
       break;
     case "color-2":
       e.target.toggleAttribute("active");
       color1.removeAttribute("active");
       color3.removeAttribute("active");
+      color4.removeAttribute("active");
       verde = true;
       rojo = false;
       naranja = false;
+      negro = false;
       break;
     case "color-3":
       e.target.toggleAttribute("active");
       color1.removeAttribute("active");
       color2.removeAttribute("active");
-      naranja = true;
+      color4.removeAttribute("active");
       rojo = false;
       verde = false;
+      negro = false;
+      naranja = true;
+      break;
+    case "color-4":
+      e.target.toggleAttribute("active");
+      color1.removeAttribute("active");
+      color2.removeAttribute("active");
+      color3.removeAttribute("active");
+      naranja = false;
+      rojo = false;
+      verde = false;
+      negro = true;
       break;
     default:
+      naranja = false;
+      rojo = false;
+      verde = false;
+      negro = false;
   }
 }
 
