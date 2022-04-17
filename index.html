@@ -9,23 +9,65 @@
   </head>
   <body>
     <div class="main">
+      <h1>Simple Paint App</h1>
       <div class="div__herramientas">
         <div class="div__lapices" id="lapices">
-          <button class="button__herramienta" id="pencil">
+          <button
+            onclick="elegirHerramienta(this)"
+            class="button__herramienta"
+            id="pencil"
+          >
             <i class="fa-solid fa-pencil fa-2xl"></i>
           </button>
-          <button class="button__herramienta" id="brush">
+          <button
+            class="button__herramienta"
+            onclick="elegirHerramienta(this)"
+            id="brush"
+          >
             <i class="fa-solid fa-paintbrush fa-2xl"></i>
           </button>
-          <button class="button__herramienta" id="eraser">
+          <button
+            class="button__herramienta"
+            onclick="elegirHerramienta(this)"
+            id="forms"
+          >
+            <i class="fa-solid fa-draw-polygon fa-2xl"></i>
+          </button>
+          <button
+            class="button__herramienta"
+            onclick="elegirHerramienta(this)"
+            id="eraser"
+          >
             <i class="fa-solid fa-eraser fa-2xl"></i>
           </button>
         </div>
         <div class="div__colores">
-          <button class="button__color" id="color-1"></button>
-          <button class="button__color" id="color-2"></button>
-          <button class="button__color" id="color-3"></button>
-          <button class="button__color" id="color-4"></button>
+          <button
+            class="button__color"
+            onclick="elegirColor(this)"
+            id="color-1"
+          ></button>
+          <button
+            class="button__color"
+            onclick="elegirColor(this)"
+            id="color-2"
+          ></button>
+          <button
+            class="button__color"
+            onclick="elegirColor(this)"
+            id="color-3"
+          ></button>
+          <button
+            class="button__color"
+            onclick="elegirColor(this)"
+            id="color-4"
+          ></button>
+          <input
+            onInput="color = this.value"
+            type="color"
+            onclick="elegirColor(this)"
+            class="input__color"
+          />
         </div>
       </div>
       <canvas
@@ -34,6 +76,7 @@
         class="div__pantalla"
         id="pantalla"
       ></canvas>
+      <p>Made with ♥ by Raisitae</p>
     </div>
     <script
       src="https://kit.fontawesome.com/e69822852a.js"

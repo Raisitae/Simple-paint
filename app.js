@@ -1,18 +1,5 @@
-//let herramienta = ["pencil", "brush", "eraser"];
-
-let pencil = document.getElementById("pencil");
-let brush = document.getElementById("brush");
-let eraser = document.getElementById("eraser");
-
-let color1 = document.getElementById("color-1");
-let color2 = document.getElementById("color-2");
-let color3 = document.getElementById("color-3");
-let color4 = document.getElementById("color-4");
-
-let rojo = false;
-let verde = false;
-let naranja = false;
-let negro = false;
+let herramienta;
+let color;
 
 var pantalla = document.querySelector("canvas");
 var pincel = pantalla.getContext("2d");
@@ -21,18 +8,6 @@ pincel.fillStyle = "white";
 pincel.fillRect(0, 0, 1200, 600);
 
 let puedoDibujar = false;
-
-function checkColor() {
-  if (rojo) {
-    pincel.strokeStyle = "#FC3939";
-  } else if (verde) {
-    pincel.strokeStyle = "#6CFF80";
-  } else if (naranja) {
-    pincel.strokeStyle = "#FFB950";
-  } else if (negro) {
-    pincel.strokeStyle = "#000000";
-  }
-}
 
 function start(evento) {
   pincel.beginPath();
@@ -50,19 +25,24 @@ function dibujar(evento) {
       evento.pageX - pantalla.offsetLeft,
       evento.pageY - pantalla.offsetTop
     );
-    pincel.strokeStyle = checkColor();
+    pincel.strokeStyle = color;
     pincel.linecap = "round";
     pincel.lineJoin = "round";
-    if (document.getElementById("pencil").hasAttribute("active")) {
+    if (herramienta == "pencil") {
       pincel.lineWidth = 5;
       pincel.stroke();
-    } else if (document.getElementById("brush").hasAttribute("active")) {
+    } else if (herramienta == "brush") {
       pincel.lineWidth = 10;
       pincel.stroke();
-    } else if (document.getElementById("eraser").hasAttribute("active")) {
+    } else if (herramienta == "eraser") {
       pincel.strokeStyle = "white";
       pincel.lineWidth = 10;
       pincel.stroke();
+    } else if (herramienta == "forms") {
+      pincel.fillStyle = color;
+      pincel.fill();
+      pincel.linecap = "none";
+      pincel.lineJoin = "none";
     }
   }
   evento.preventDefault();
@@ -90,107 +70,20 @@ pantalla.addEventListener("touchend", stop, false);
 pantalla.addEventListener("mouseup", stop, false);
 pantalla.addEventListener("mouseout", stop, false);
 
-// este switch si funciona
-function elegirHerramienta(e) {
-  if (e.target.id !== "") {
-    switch (e.target.id) {
-      case "pencil":
-        console.log("pencil");
-        e.target.toggleAttribute("active");
-        eraser.removeAttribute("active");
-        brush.removeAttribute("active");
-        break;
-      case "brush":
-        console.log("brush");
-        e.target.toggleAttribute("active");
-        pencil.removeAttribute("active");
-        eraser.removeAttribute("active");
-        break;
-      case "eraser":
-        console.log("eraser");
-        e.target.toggleAttribute("active");
-        brush.removeAttribute("active");
-        pencil.removeAttribute("active");
-        break;
-      default:
-    }
-  } else if (e.target.id == "" && e.target.parentNode.id !== "") {
-    switch (e.target.parentNode.id) {
-      case "pencil":
-        console.log("pencil");
-        e.target.parentNode.toggleAttribute("active");
-        eraser.removeAttribute("active");
-        brush.removeAttribute("active");
-        break;
-      case "brush":
-        console.log("brush");
-        e.target.parentNode.toggleAttribute("active");
-        pencil.removeAttribute("active");
-        eraser.removeAttribute("active");
-        break;
-      case "eraser":
-        console.log("eraser");
-        e.target.parentNode.toggleAttribute("active");
-        pencil.removeAttribute("active");
-        brush.removeAttribute("active");
-        break;
-      default:
-    }
-  } else {
-    console.log("nada");
+function elegirHerramienta(element) {
+  for (x = 0; x < 4; x++) {
+    element.parentNode.children[x].removeAttribute("active");
   }
+  herramienta = element.id;
+  element.toggleAttribute("active");
 }
 
-function elegirColor(e) {
-  switch (e.target.id) {
-    case "color-1":
-      e.target.toggleAttribute("active");
-      color2.removeAttribute("active");
-      color3.removeAttribute("active");
-      color4.removeAttribute("active");
-      rojo = true;
-      verde = false;
-      naranja = false;
-      negro = false;
-      break;
-    case "color-2":
-      e.target.toggleAttribute("active");
-      color1.removeAttribute("active");
-      color3.removeAttribute("active");
-      color4.removeAttribute("active");
-      verde = true;
-      rojo = false;
-      naranja = false;
-      negro = false;
-      break;
-    case "color-3":
-      e.target.toggleAttribute("active");
-      color1.removeAttribute("active");
-      color2.removeAttribute("active");
-      color4.removeAttribute("active");
-      rojo = false;
-      verde = false;
-      negro = false;
-      naranja = true;
-      break;
-    case "color-4":
-      e.target.toggleAttribute("active");
-      color1.removeAttribute("active");
-      color2.removeAttribute("active");
-      color3.removeAttribute("active");
-      naranja = false;
-      rojo = false;
-      verde = false;
-      negro = true;
-      break;
-    default:
-      naranja = false;
-      rojo = false;
-      verde = false;
-      negro = false;
+function elegirColor(element) {
+  for (x = 0; x < 4; x++) {
+    element.parentNode.children[x].removeAttribute("active");
   }
+  color = window
+    .getComputedStyle(element, null)
+    .getPropertyValue("background-color");
+  element.toggleAttribute("active");
 }
-
-document.addEventListener("click", elegirHerramienta);
-
-document.addEventListener("click", elegirColor);
